@@ -60,6 +60,7 @@ let lightMode = () =>{
                 link.href = data.html_url
                 document.getElementById("company").innerHTML = data.company == null? "No info":data.company;
 
+                
             }
         }
         xhttp.open("GET","https://api.github.com/users/" + username, true);
