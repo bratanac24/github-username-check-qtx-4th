@@ -41,8 +41,13 @@ let lightMode = () =>{
                 username.innerHTML = "@"+data.login
                 
                 let timeJoined = document.getElementById("joined")
-                timeJoined.innerHTML ="Joined "+ data.created_at.toLocaleString('en-US');
-                
+                let date = new Date(data.created_at)
+                let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
+                let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
+                let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
+                console.log(`${da} ${mo} ${ye}`);
+                timeJoined.innerHTML ="Joined "+ `${da} ${mo} ${ye}`
+
                 let bio = document.getElementById("bio")
                 bio.innerHTML = data.bio == null? "No bio":data.bio;
 
@@ -59,8 +64,6 @@ let lightMode = () =>{
                 link.innerHTML = data.html_url
                 link.href = data.html_url
                 document.getElementById("company").innerHTML = data.company == null? "No info":data.company;
-
-                
             }
         }
         xhttp.open("GET","https://api.github.com/users/" + username, true);
@@ -71,6 +74,7 @@ let lightMode = () =>{
 
 let usernameInput = document.getElementById("github-search");
 usernameInput.value = "bratanac24";
+searchUser();
 
 usernameInput.addEventListener("keyup", function(event) {
 
