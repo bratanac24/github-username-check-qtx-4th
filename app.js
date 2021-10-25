@@ -10,7 +10,7 @@ let lightMode = () =>{
 
 
 
- searchUser = () => {
+const searchUser = () => {
 
    let username = document.getElementById("github-search").value;
    let errorMsg = document.getElementById("error");
@@ -30,7 +30,7 @@ let lightMode = () =>{
                 errorMsg.style.display = "flex";
             }
             else{
-                console.log(data);
+                //console.log(data);
 
                 document.getElementById("avatar").src = data.avatar_url;
 
@@ -45,25 +45,58 @@ let lightMode = () =>{
                 let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
                 let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
                 let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
-                console.log(`${da} ${mo} ${ye}`);
                 timeJoined.innerHTML ="Joined "+ `${da} ${mo} ${ye}`
 
                 let bio = document.getElementById("bio")
-                bio.innerHTML = data.bio == null? "No bio":data.bio;
-
+                bio.innerHTML = data.bio == null? "Not Available":data.bio;
                 document.getElementById("repos").innerHTML = data.public_repos;
                 document.getElementById("followers").innerHTML = data.followers
                 document.getElementById("follows").innerHTML = data.following;
                 
                 let location = document.getElementById("location")
-                location.innerHTML = data.location == null? "No Data":data.location;
+                
+                if(data.location == null){
+                    location.innerHTML = "Not Available";
+                    location.parentElement.parentElement.style = "opacity:50%";
+                }
+                else{
+                    location.innerHTML = data.location;
+                    location.href = "https://www.google.com/search/" + data.location+"/@0,0"
+                    location.parentElement.parentElement.style = "fill-opacity:100%";
+                }
 
                 let twitter = document.getElementById("twitter");
-                twitter.innerHTML = data.twitter_username == null? "No info":"@" + data.twitter_username;
+                if(data.twitter_username === null){
+                    twitter.innerHTML = "Not Available"
+                    twitter.parentElement.parentElement.opacity = "50%";
+                    twitter.href = "";
+                }
+                else{
+                    twitter.innerHTML = "@"+data.twitter_username;
+                    twitter.parentElement.parentElement.opacity = "100%";
+                    twitter.href = "https://twitter.com/"+data.twitter_username;
+
+                }
+
                 let link = document.getElementById("link")
                 link.innerHTML = data.html_url
                 link.href = data.html_url
-                document.getElementById("company").innerHTML = data.company == null? "No info":data.company;
+                
+                let company_url;
+
+                let company = document.getElementById("company");
+                if(data.company === null){
+                    company.innerHTML = "Not Available";
+                    company.parentElement.parentElement.style = "opacity:50%";
+                }
+                else{
+                    company_url = data.company.replace("@","").toLowerCase();
+                    company.innerHTML = "@"+data.company;
+                    company_url = "http://github.com/" + company_url;
+                    company.parentElement.parentElement.style = "fill-opacity:100%";
+                    
+                }
+                company.href = company_url;
             }
         }
         xhttp.open("GET","https://api.github.com/users/" + username, true);

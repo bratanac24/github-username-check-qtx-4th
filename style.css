@@ -251,6 +251,9 @@ span {
   color: #4b6a9b;
   fill: #4b6a9b;
 }
+.external-item:hover {
+  opacity: 50%;
+}
 .external-item a {
   text-decoration: none;
   color: #4b6a9b;
@@ -330,13 +333,17 @@ span {
   button {
     font-size: 13px !important;
   }
-  .stats span,
   h1 {
+    font-size: 28px;
+    line-height: 38px;
+  }
+  .stats span,
+  .name {
     font-size: 16px;
   }
 
   .main {
-    max-width: 320px;
+    max-width: 300px;
   }
   .external {
     flex-direction: column;
@@ -344,10 +351,18 @@ span {
   .avatar {
     width: 70px;
     height: 70px;
+    top: 20px;
+    left: 20px;
+  }
+  .stats {
+    justify-content: center;
+    align-items: center;
   }
 
   .stats div {
-    padding-right: 0;
-    margin-right: 0;
+    padding: 0;
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
   }
 }
